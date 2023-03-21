@@ -16,14 +16,16 @@ import OrderHistory from "./pages/OrderHistory";
 
 const client = new ApolloClient({
   request: (operation) => {
+    // Get the token from local storage
     const token = localStorage.getItem('id_token')
+    // Set the authorization headers with the token
     operation.setContext({
       headers: {
         authorization: token ? `Bearer ${token}` : ''
       }
     })
   },
-  uri: '/graphql',
+  uri: '/graphql', // Set the URI for the GraphQL server
 })
 
 function App() {
@@ -32,15 +34,15 @@ function App() {
       <Router>
         <div>
           <Provider store={store}>
-            <Nav />
+            <Nav /> {/* Render the navigation bar */}
             <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/signup" component={Signup} />
-              <Route exact path="/success" component={Success} />
-              <Route exact path="/orderHistory" component={OrderHistory} />
-              <Route exact path="/products/:id" component={Detail} />
-              <Route component={NoMatch} />
+              <Route exact path="/" component={Home} /> {/* Render the home page */}
+              <Route exact path="/login" component={Login} /> {/* Render the login page */}
+              <Route exact path="/signup" component={Signup} /> {/* Render the signup page */}
+              <Route exact path="/success" component={Success} /> {/* Render the success page */}
+              <Route exact path="/orderHistory" component={OrderHistory} /> {/* Render the order history page */}
+              <Route exact path="/products/:id" component={Detail} /> {/* Render the product detail page */}
+              <Route component={NoMatch} /> {/* Render the 404 page */}
             </Switch>
           </Provider>
         </div>
